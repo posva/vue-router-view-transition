@@ -73,8 +73,5 @@
   "bugs": {
     "url": "https://github.com/posva/vue-router-view-transition/issues"
   },
-  "homepage": "https://github.com/posva/vue-router-view-transition#readme",
-  "peerDependencies": {
-    "focus-trap": "^5.0.2"
-  }
+  "homepage": "https://github.com/posva/vue-router-view-transition#readme"
 }
