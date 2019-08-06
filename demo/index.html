@@ -12,32 +12,21 @@
     <title>Router View Transition</title>
   </head>
   <body>
-    <h1 id="title">Ha.</h1>
-    <p class="subtitle">
-      <!-- <img src="assets/casual-me.jpg" alt="picture of myself" /> -->
-      I'm Eduardo
-    </p>
+    <div class="container">
+      <h1><code>router-view</code> + <code>trasition</code> can be hard...</h1>
 
-    <pre><%= JSON.stringify(htmlWebpackPlugin.files, 2) %></pre>
+      <p class="subtitle">
+        Specially when used with <a href="#TODO"><code>scrollBehavior</code></a
+        >. This library makes it easy to correctly restore the scroll
+        <b>after</b> the transition is finished!
+        <br />
+        Take a look at the demo to see the result by yourself:
+        <br />
+        <a href="#TODO">Github</a>
+        <a href="#TODO">Twitter</a>
+      </p>
 
-    <main id="main">
-      <p>
-        I develop front-end applications, give
-        <a href="#TODO">workshops</a> and
-        <a href="#TODO">talk at conferences</a>. I write
-        <a href="https://github.com/posva">useful libraries</a>, mostly for Vue
-        and post them on Github. I sometimes post
-        <i
-          ><a href="https://twitter.com/posva/status/1146415898967908352"
-            >tech memes</a
-          ></i
-        >
-        and talk about JavaScript on
-        <a href="https://twitter.com/posva">Twitter</a>.
-      </p>
-      <p>
-        I'm still working on this page, so sorry about the broken links!
-      </p>
-    </main>
+      <main id="main"></main>
+    </div>
   </body>
 </html>

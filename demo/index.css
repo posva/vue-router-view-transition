@@ -3,7 +3,7 @@
   --light: #efeeed;
 
   --red: #e3342f;
-  --green: #38c172;
+  --green: #0fa74e;
   --blue: #3490dc;
 
   --bgColor: var(--light);
@@ -12,28 +12,14 @@
   --moveOffset: 1.35px;
 }
 
-@media (prefers-dark-interface), (prefers-color-scheme: dark) {
-  :root {
-    --bgColor: var(--dark);
-    --textColor: var(--light);
-  }
+.container {
+  max-width: 72rem;
+  margin: auto;
+  width: 100%;
 }
 
-body.dark {
-  --bgColor: var(--dark);
-  --textColor: var(--light);
-}
-
-#physics {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: -1;
-}
-
-#main {
-  width: 48rem;
-  max-width: 100%;
+.long {
+  height: 1.5vh;
 }
 
 body {
@@ -44,77 +30,27 @@ body {
   font-size: calc(22px + 0.33vw);
   -webkit-font-smoothing: antialiased;
   padding: 5vh 10vw;
-  background-color: var(--bgColor);
-  color: var(--textColor);
+  background-color: #efeeed;
+  color: #121314;
   margin: 0;
   min-height: 100vh;
 }
 
 ::selection {
-  color: var(--bgColor);
-  background-color: var(--textColor);
+  color: #efeeed;
+  background-color: #121314;
 }
 
 a {
   display: inline-block;
-  color: var(--blue);
+  color: #3490dc;
   position: relative;
   font-weight: 500;
   text-decoration: none;
   transition: color 500ms linear 200ms;
-
-  /* border-bottom: var(--blue) 1px solid; */
-}
-
-a::before,
-a::after {
-  transition: transform 500ms ease-out, opacity 500ms linear;
-  /* transition: opacity 300ms ease-out; */
-}
-
-a::before,
-a::after {
-  opacity: 0;
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-a:hover::before,
-a:hover::after {
-  opacity: 0.75;
-}
-
-a::before {
-  color: var(--red);
-}
-
-a::after {
-  color: var(--blue);
 }
 
 a:hover,
 a:focus {
-  color: var(--green);
-  transition-delay: 0s;
-}
-
-a:hover::before,
-a:focus::before {
-  transform: translate3d(
-    var(--moveX, var(--moveOffset)),
-    var(--moveY, var(--moveOffset)),
-    0
-  );
-}
-
-a:hover::after,
-a:focus::after {
-  color: var(--blue);
-  transform: translate3d(
-    calc(-1 * var(--moveX, var(--moveOffset))),
-    calc(-1 * var(--moveY, var(--moveOffset))),
-    0
-  );
+  color: #0fa74e;
 }
