@@ -54,3 +54,38 @@ a:hover,
 a:focus {
   color: #0fa74e;
 }
+
+hr {
+  height: 8px;
+  color: #121314;
+  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="8px" height="8px" viewBox="0 0 3 3" fill="%23121314"%3E%3Cpolygon points="0,0.5 0,1.5 1.5,3 2.5,3"/%3E%3Cpolygon points="2.5,0 1.5,0 3,1.5 3,0.5"/%3E%3C/svg%3E')
+    repeat-x 0 0;
+  background-size: 8px 8px;
+  border: 0;
+  width: 75%;
+  margin: 2rem auto;
+}
+
+.text svg {
+  width: 1em;
+  height: 1em;
+}
+
+svg {
+  fill: currentColor;
+}
+
+.arrow-down {
+  display: block;
+  margin: 2em auto;
+  color: lightslategray;
+}
+
+.scroll-indicator {
+  opacity: 0.25;
+  font-size: 4rem;
+  text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+  color: lightslategray;
+  margin: 1em 0 80vh;
+  text-align: center;
+}
