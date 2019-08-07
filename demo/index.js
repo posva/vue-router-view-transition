@@ -1,3 +1,10 @@
 import './index.css'
+import Vue from 'vue'
+import router from './router'
+import App from './App.vue'
 
-console.log('haha')
+new Vue({
+  el: '#app',
+  router: router,
+  render: h => h(App),
+})

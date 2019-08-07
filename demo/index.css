@@ -22,6 +22,16 @@
   height: 1.5vh;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  background: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 body {
   box-sizing: border-box;
   position: relative;
@@ -39,20 +49,6 @@ body {
 ::selection {
   color: #efeeed;
   background-color: #121314;
-}
-
-a {
-  display: inline-block;
-  color: #3490dc;
-  position: relative;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 500ms linear 200ms;
-}
-
-a:hover,
-a:focus {
-  color: #0fa74e;
 }
 
 hr {
@@ -86,6 +82,72 @@ svg {
   font-size: 4rem;
   text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
   color: lightslategray;
-  margin: 1em 0 80vh;
+  margin: 15vh 0 15vh;
   text-align: center;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.slide-left-enter-active,
+.slide-right-enter-active,
+.slide-left-leave-active,
+.slide-right-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(calc(50vh + 100%), 0);
+}
+.slide-left-leave-active {
+  position: absolute;
+}
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(calc(-50vh - 100%), 0);
+}
+
+a {
+  /* RESET */
+  text-decoration: none;
+  line-height: 1;
+
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 5px 5px;
+  overflow: hidden;
+  color: #333;
+  vertical-align: bottom;
+  transition: color 0.3s ease-out;
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0.2em;
+  left: 0;
+  transform: translateY(calc(90% - 0.2em)) rotateZ(1.5deg);
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%);
+  transition: transform 0.25s ease-out;
+}
+
+a:hover {
+  color: #fff;
+}
+a:hover::before {
+  transform: translateY(-0.2em);
+  transition: transform 0.25s ease-out;
 }

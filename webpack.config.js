@@ -4,6 +4,7 @@ const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin')
   .default
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require('webpack')
 const path = require('path')
 
@@ -55,6 +56,10 @@ module.exports = ({ mode = 'production' } = {}) => {
     module: {
       rules: [
         {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
           test: /\.css$/,
           use: [
             mode === 'production'
@@ -69,6 +74,7 @@ module.exports = ({ mode = 'production' } = {}) => {
     ...extraConfig,
 
     plugins: [
+      new VueLoaderPlugin(),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'demo/index.html'),
       }),
