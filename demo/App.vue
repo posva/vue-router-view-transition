@@ -1,5 +1,5 @@
 <template>
-  <main id="app">
+  <main id="app" :data-mode="mode">
     <fieldset>
       <legend>Transition <code>mode</code></legend>
       <div class="radio-group">
@@ -14,36 +14,59 @@
         </label>
       </div>
     </fieldset>
-    <transition :name="transition" :mode="mode">
+
+    <transition
+      :name="transition"
+      :mode="mode"
+      @before-leave="pullWindowToRight"
+    >
       <router-view></router-view>
     </transition>
   </main>
 </template>
 
 <script>
+import { setTimeout } from "timers";
 export default {
   data: function() {
     return {
-      mode: ""
+      mode: "",
+      leaving: false
     };
+  },
+
+  methods: {
+    pullWindowToRight: function() {
+      setTimeout(function() {
+        window.scrollX = 0;
+      }, 200);
+      // this.$nextTick(function() {
+      // });
+    }
   },
 
   computed: {
     transition: function() {
-      return "slide-left";
+      if (this.mode === "out-in") return "fade";
+      return `slide-${this.leaving ? "right" : "left"}`;
     }
   }
 };
 </script>
 
 <style scoped>
+main {
+  position: relative;
+  left: 0;
+  /* overflow: visible; */
+}
+
 label {
   color: var(--dark);
   display: inline-block;
   cursor: pointer;
   font-weight: bold;
   padding: 5px 20px;
-  /* background-color: white; */
 }
 
 legend {
@@ -70,11 +93,12 @@ label.active {
   background-image: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%);
 }
 
-label + label {
-  border-left: solid var(--light);
+label:last-child {
+  margin-right: -1px;
 }
+
 .radio-group {
-  border: solid 3px var(--dark);
+  border: solid 2px var(--dark);
   user-select: none;
   /* background-image: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%); */
   display: inline-block;
@@ -82,6 +106,18 @@ label + label {
   border-radius: 10px;
   overflow: hidden;
   display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .radio-group {
+    display: block;
+    margin: 20px auto;
+    max-width: 200px;
+  }
+  label {
+    display: block;
+    text-align: center;
+  }
 }
 </style>
 

@@ -15,7 +15,7 @@
       <br />
       <br />
 
-      Go ahead, change the mode <a href="#top">up there</a> and try again 👇
+      Go ahead, change the mode <a href="#app">up there</a> and try again 👇
     </div>
 
     <p>
@@ -37,6 +37,7 @@ export default {
     next(function(vm) {
       if (from.path === "/middle") {
         vm.didBack = true;
+        vm.$parent.leaving = false;
       }
     });
   },
@@ -49,8 +50,26 @@ export default {
 
   computed: {
     explanation: function() {
-      if (this.$parent.mode === "") {
-        return `You used the <b>default</b> mode, which means both <i>leaving</i> and <i>entering</i> transitions trigger at the same time. Because of this, restoring the scroll position right away works correctly:
+      if (this.$parent.mode === "out-in") {
+        return `You used the <b>out-in</b> mode, which means the <i>leaving</i> transition must finish before the <i>entering</i> one even starts. Because of this, when restoring the scroll position we must wait for the <i>entering</i> view to be visible:
+        <pre>
+import { scrollWaiter } from 'vue-router-view-transition'
+
+async function scrollBehavior(to, from, savedPosition) {
+  await scrollWaiter.wait()
+  if (savedPosition) {
+    return savedPosition
+  } else {
+    return { x: 0, y: 0 }
+  }
+} 
+        </pre>
+
+        But that's not always the case, why don't you try out <i>Out-in</i>?
+        `;
+      }
+      return `You used the <b>${this.$parent.mode ||
+        "default"}</b> mode, which means both <i>leaving</i> and <i>entering</i> transitions trigger at the same time. Because of this, restoring the scroll position right away works correctly:
         <pre>
 function scrollBehavior(to, from, savedPosition) {
   if (savedPosition) {
@@ -63,13 +82,16 @@ function scrollBehavior(to, from, savedPosition) {
 
         But that's not always the case, why don't you try out <i>Out-in</i>?
         `;
-      }
     },
     explanationStyle: function() {
       return {
         visibility: this.didBack ? "visible" : "hidden"
       };
     }
+  },
+  beforeRouteLeave: function(to, from, next) {
+    if (this.$parent.mode === "in-out") this.$el.style.position = "absolute";
+    next();
   }
 };
 </script>

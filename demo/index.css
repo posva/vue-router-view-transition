@@ -14,14 +14,16 @@
 
 .container {
   max-width: 72rem;
+  padding: 2rem 3rem;
   margin: auto;
   width: 100%;
 }
 
-.long {
-  height: 1.5vh;
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0.2rem 1rem;
+  }
 }
-
 * {
   box-sizing: border-box;
 }
@@ -34,16 +36,16 @@ h1 {
 
 body {
   box-sizing: border-box;
-  position: relative;
+  /* position: relative; */
   font-family: -apple-system, 'Helvetica Neue', BlinkMacSystemFont, Cantarell,
     'Open Sans', sans-serif;
   font-size: calc(22px + 0.33vw);
   -webkit-font-smoothing: antialiased;
-  padding: 5vh 10vw;
   background-color: #efeeed;
   color: #121314;
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -99,21 +101,52 @@ svg {
 .slide-right-enter-active,
 .slide-left-leave-active,
 .slide-right-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition-property: opacity, transform;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 }
+
+[data-mode=''] .slide-right-leave-active {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+}
+[data-mode=''] .slide-right-enter-active {
+  position: absolute;
+  left: 0;
+  /* right: 0; */
+  z-index: -1;
+}
+[data-mode=''] .slide-left-enter-active {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+}
+[data-mode=''] .slide-left-leave-active {
+  /* right: 0; */
+  left: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+/* [data-mode='in-out'] .slide-left-enter-active,
+[data-mode='in-out'] .slide-right-enter-active,
+[data-mode='in-out'] .slide-left-leave-active,
+[data-mode='in-out'] .slide-right-leave-active {
+  position: absolute;
+  z-index: -1;
+} */
 
 .slide-left-enter,
 .slide-right-leave-active {
   opacity: 0;
-  transform: translate(calc(50vh + 100%), 0);
+  transform: translate(calc(4rem), 0);
 }
-.slide-left-leave-active {
-  position: absolute;
-}
+
 .slide-left-leave-active,
 .slide-right-enter {
   opacity: 0;
-  transform: translate(calc(-50vh - 100%), 0);
+  transform: translate(calc(-4rem), 0);
 }
 
 a {
