@@ -48,14 +48,14 @@ module.exports = ({ mode = 'production' } = {}) => {
     mode === 'production' ? productionOnlyConfig : devOnlyConfig
 
   return {
-    entry: path.resolve(__dirname, 'demo/index.js'),
+    entry: path.resolve(__dirname, 'demo/index.ts'),
     mode,
     output: {
       path: outputPath,
     },
 
     resolve: {
-      extensions: ['.js', '.ts'],
+      extensions: ['.js', '.ts', '.vue'],
     },
 
     module: {

@@ -1,5 +1,5 @@
 {
-  "include": ["src", "docs/index.js"],
+  "include": ["src", "demo"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",

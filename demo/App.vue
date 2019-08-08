@@ -15,44 +15,27 @@
       </div>
     </fieldset>
 
-    <router-view-transition
-      :transition="transition"
-      :mode="mode"
-      @before-leave="pullWindowToRight"
-    />
+    <router-view-transition :transition="transition" :mode="mode" />
   </main>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 import { RouterViewTransition } from "../src";
 
-export default {
-  data: function() {
-    return {
-      mode: "",
-      leaving: false
-    };
-  },
+@Component({
+  components: { RouterViewTransition }
+})
+export default class App extends Vue {
+  mode = "";
+  leaving = false;
 
-  methods: {
-    pullWindowToRight: function() {
-      setTimeout(function() {
-        window.scrollX = 0;
-      }, 200);
-      // this.$nextTick(function() {
-      // });
-    }
-  },
-
-  computed: {
-    transition: function() {
-      if (this.mode === "out-in") return "fade";
-      return `slide-${this.leaving ? "right" : "left"}`;
-    }
-  },
-
-  components: { RouterViewTransition: RouterViewTransition }
-};
+  get transition() {
+    if (this.mode === "out-in") return "fade";
+    return `slide-${this.leaving ? "right" : "left"}`;
+  }
+}
 </script>
 
 <style scoped>
