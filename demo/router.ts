@@ -13,7 +13,7 @@ const router = new Router({
     { path: '/', component: Start },
     { path: '/middle', component: Middle },
   ],
-  scrollBehavior: waitForTransition((to, from, savedPosition) => {
+  scrollBehavior: waitForTransition((_to, _from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
     } else {

@@ -63,6 +63,9 @@ module.exports = ({ mode = 'production' } = {}) => {
         {
           test: /\.ts$/,
           loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/],
+          },
         },
         {
           test: /\.vue$/,
