@@ -53,8 +53,17 @@ module.exports = ({ mode = 'production' } = {}) => {
     output: {
       path: outputPath,
     },
+
+    resolve: {
+      extensions: ['.js', '.ts'],
+    },
+
     module: {
       rules: [
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+        },
         {
           test: /\.vue$/,
           loader: 'vue-loader',

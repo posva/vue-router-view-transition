@@ -1,3 +1,5 @@
+import { RouterOptions } from 'vue-router'
+
 interface ScrollWaiter {
   resolve: (() => void) | null
   promise: Promise<void> | null
@@ -26,4 +28,19 @@ export const scrollWaiter: ScrollWaiter = {
   async wait() {
     await this.promise
   },
+}
+
+type ScrollBehaviorMethod = Required<RouterOptions>['scrollBehavior']
+
+/**
+ * Wraps a scrollBehavior method to asynchronously await for the entering view to be visible. It requires you to use the `router-view-transition` component
+ * @param guard
+ */
+export function waitForTransition(
+  scrollBehavior: ScrollBehaviorMethod
+): ScrollBehaviorMethod {
+  return async (...args) => {
+    await scrollWaiter.wait()
+    scrollBehavior(...args)
+  }
 }

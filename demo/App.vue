@@ -15,18 +15,17 @@
       </div>
     </fieldset>
 
-    <transition
-      :name="transition"
+    <router-view-transition
+      :transition="transition"
       :mode="mode"
       @before-leave="pullWindowToRight"
-    >
-      <router-view></router-view>
-    </transition>
+    />
   </main>
 </template>
 
 <script>
-import { setTimeout } from "timers";
+import { RouterViewTransition } from "../src";
+
 export default {
   data: function() {
     return {
@@ -50,7 +49,9 @@ export default {
       if (this.mode === "out-in") return "fade";
       return `slide-${this.leaving ? "right" : "left"}`;
     }
-  }
+  },
+
+  components: { RouterViewTransition: RouterViewTransition }
 };
 </script>
 
