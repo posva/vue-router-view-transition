@@ -51,25 +51,29 @@ export default {
   computed: {
     explanation: function() {
       if (this.$parent.mode === "out-in") {
-        return `You used the <b>out-in</b> mode, which means the <i>leaving</i> transition must finish before the <i>entering</i> one even starts. Because of this, when restoring the scroll position we must wait for the <i>entering</i> view to be visible:
+        return `You used the <b>out-in</b> mode, which means the <i>leaving</i> transition must finish before the <i>entering</i> one even starts. Because of this, when restoring the scroll position we must wait for the <i>entering</i> view to be visible. For that to work, we need to <b>wait</b>. If we are using <code>router-view-transition</code>, we can use the helper <code>waitForTransition</code> to create an adapted <code>scrollBehavior</code>:
         <pre>
-import { scrollWaiter } from 'vue-router-view-transition'
+import { waitForTransition } from 'vue-router-view-transition'
 
-async function scrollBehavior(to, from, savedPosition) {
-  await scrollWaiter.wait()
+const scrollBehavior = waitForTransition((to, from, savedPosition) => {
   if (savedPosition) {
     return savedPosition
   } else {
     return { x: 0, y: 0 }
   }
-} 
+}) 
         </pre>
 
-        But that's not always the case, why don't you try out <i>Out-in</i>?
+If we didin't use that helper, we would have stay at the same scroll level as we were before.
+<br/>
+        You can try out <i>In-out</i> but it doesn't look that great 🙃
         `;
       }
+      const description = this.$parent.mode
+        ? `which means <i>entering</i> happens before <i>leaving</i> and more specifically, right when the transition starts`
+        : `which means both <i>leaving</i> and <i>entering</i> transitions trigger at the same time`;
       return `You used the <b>${this.$parent.mode ||
-        "default"}</b> mode, which means both <i>leaving</i> and <i>entering</i> transitions trigger at the same time. Because of this, restoring the scroll position right away works correctly:
+        "default"}</b> mode, ${description}. Because of this, restoring the scroll position right away works correctly:
         <pre>
 function scrollBehavior(to, from, savedPosition) {
   if (savedPosition) {

@@ -110,23 +110,27 @@ svg {
   position: absolute;
   left: 0;
   z-index: -1;
+  max-width: 100%;
 }
 [data-mode=''] .slide-right-enter-active {
   position: absolute;
   left: 0;
   /* right: 0; */
   z-index: -1;
+  max-width: 100%;
 }
 [data-mode=''] .slide-left-enter-active {
   position: absolute;
   left: 0;
   z-index: -1;
+  max-width: 100%;
 }
 [data-mode=''] .slide-left-leave-active {
   /* right: 0; */
   left: 0;
   position: absolute;
   z-index: -1;
+  max-width: 100%;
 }
 
 /* [data-mode='in-out'] .slide-left-enter-active,
