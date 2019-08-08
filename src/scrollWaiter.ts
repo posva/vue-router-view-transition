@@ -1,4 +1,13 @@
-export const scrollWaiter = {
+interface ScrollWaiter {
+  resolve: (() => void) | null
+  promise: Promise<void> | null
+
+  add: () => void
+  flush: () => void
+  wait: () => Promise<void>
+}
+
+export const scrollWaiter: ScrollWaiter = {
   resolve: null,
   promise: null,
 
