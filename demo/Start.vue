@@ -15,7 +15,8 @@
       <br />
       <br />
 
-      Go ahead, change the mode <a href="#app">up there</a> and try again 👇
+      Go ahead, change the mode
+      <a href="/" @click="scrollToTop">up there</a> and try again 👇
     </div>
 
     <p>
@@ -104,6 +105,17 @@ function scrollBehavior(to, from, savedPosition) {
     // @ts-ignore
     if (this.$parent.mode === "in-out") this.$el.style.position = "absolute";
     next();
+  }
+
+  scrollToTop(e: MouseEvent) {
+    // don't redirect with control keys
+    if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
+    // don't redirect when preventDefault called
+    if (e.defaultPrevented) return;
+    // don't redirect on right click
+    if (e.button !== undefined && e.button !== 0) return;
+    e.preventDefault();
+    window.scrollTo(0, document.getElementById("app")!.offsetTop);
   }
 }
 </script>
