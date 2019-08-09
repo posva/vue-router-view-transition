@@ -188,3 +188,83 @@ a:hover::before {
   transform: translateY(-0.2em);
   transition: transform 0.25s ease-out;
 }
+
+/* App.vue */
+#app {
+  position: relative;
+  left: 0;
+  /* overflow: visible; */
+}
+
+.radio-group label {
+  color: var(--dark);
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 20px;
+}
+
+#app legend {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+#app fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-group input[type='radio'] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+.radio-group .active {
+  color: var(--light);
+  /* background: var(--dark); */
+  background-image: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%);
+}
+
+.radio-group label:last-child {
+  margin-right: -1px;
+}
+
+.radio-group {
+  border: solid 2px var(--dark);
+  user-select: none;
+  /* background-image: linear-gradient(60deg, #0fa74e 0%, #3490dc 100%); */
+  display: inline-block;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .radio-group {
+    display: block;
+    margin: 20px auto;
+    max-width: 200px;
+  }
+  .radio-group label {
+    display: block;
+    text-align: center;
+  }
+}
+
+/* Start.vue */
+.explanation {
+  border-radius: 1em;
+  padding: 0 2em 1em;
+  border: 1px solid #dfdede;
+  background-color: #effefe;
+  overflow: hidden;
+}
+
+.explanation pre {
+  max-width: 100%;
+  overflow: scroll;
+}

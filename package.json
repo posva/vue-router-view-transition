@@ -9,7 +9,8 @@
   "jsdelivr": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "*.vue"
   ],
   "author": {
     "name": "Eduardo San Martin Morote",

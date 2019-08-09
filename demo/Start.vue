@@ -107,18 +107,3 @@ function scrollBehavior(to, from, savedPosition) {
   }
 }
 </script>
-
-<style scoped>
-.explanation {
-  border-radius: 1em;
-  padding: 0 2em 1em;
-  border: 1px solid #dfdede;
-  background-color: #effefe;
-  overflow: hidden;
-}
-
-.explanation >>> pre {
-  max-width: 100%;
-  overflow: scroll;
-}
-</style>
