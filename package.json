@@ -1,6 +1,6 @@
 {
   "name": "vue-router-view-transition",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A transition wrapper for router-view that is compatible with scrollBehavior",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
