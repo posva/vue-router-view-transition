@@ -1,115 +1,76 @@
-# focus-trap-vue [![Build Status](https://badgen.net/circleci/github/posva/focus-trap-vue)](https://circleci.com/gh/posva/focus-trap-vue) [![npm package](https://badgen.net/npm/v/focus-trap-vue)](https://www.npmjs.com/package/focus-trap-vue) [![thanks](https://badgen.net/badge/thanks/♥/pink)](https://github.com/posva/thanks)
+# vue-router-view-transition [![Build Status](https://badgen.net/circleci/github/posva/vue-router-view-transition)](https://circleci.com/gh/posva/vue-router-view-transition) [![npm package](https://badgen.net/npm/v/vue-router-view-transition)](https://www.npmjs.com/package/vue-router-view-transition) [![thanks](https://badgen.net/badge/thanks/♥/pink)](https://github.com/posva/thanks)
 
-> Vue component to trap the focus within a DOM element
+> A transition wrapper for router-view that is compatible with scrollBehavior
 
 ## Installation
 
 ```sh
-npm install focus-trap focus-trap-vue
+npm install vue-router-view-transition
+# or
+yarn add vue-router-view-transition
 ```
 
 ## Usage
 
-This library exports one single named export `FocusTrap` and **requires
-[`focus-trap`](https://github.com/davidtheclark/focus-trap) as a peer
-dependency**. So you can locally import the component or declare it globally:
+This library exports one component and one function. You need to use both:
+
+First, you can either globally install the component `RouterViewTransition`:
 
 ```js
-import { FocusTrap } from 'focus-trap-vue'
+import { RouterViewTransition } from 'vue-router-view-transition'
 
-Vue.component('FocusTrap', FocusTrap)
+Vue.component('RouterViewTransition', RouterViewTransition)
 ```
 
-`FocusTrap` can be controlled in three different ways:
+or import it locally in any Vue component:
 
-- by using the `active` _Boolean_ prop
-- by using `v-model` (uses the `active` prop)
-- by calling the `activate`/`deactivate` method on the component
+```js
+import { RouterViewTransition } from 'vue-router-view-transition'
 
-The recommended approach is using `v-model` and it should contain **one single child**:
-
-```html
-<focus-trap v-model="isActive">
-  <modal-dialog tabindex="-1">
-    <p>
-      Do you accept the cookies?
-    </p>
-    <button @click="acceptCookies">Yes</button>
-    <button @click="isActive = false">No</button>
-  </modal-dialog>
-</focus-trap>
+export default {
+  components: { RouterViewTransition },
+}
 ```
 
-When `isActive` becomes `true`, it activates the focus trap. By default it sets
-the focus to its child, so make sure the element is a focusable element. If it's
-not you wil need to give it the `tabindex="-1"` attribute. You can also
-customize the initial element focused. This element should be an element that
-the user can interact with. For example, an input. It's a good practice to
-always focus an interactable element instead of the modal container:
+Then you should replace your `router-view` with this `router-view-transition`:
 
-```html
-<focus-trap v-model="isActive" :initial-focus="() => $refs.nameInput">
-  <modal-dialog>
-    <p>
-      What name do you want to use?
-    </p>
-    <form @submit.prevent="setName">
-      <label>
-        New Name
-        <input ref="nameInput" />
-      </label>
-      <button>Change name</button>
-    </form>
-  </modal-dialog>
-</focus-trap>
+```vue
+<router-view-transition transition="fade" mode="out-in" />
 ```
 
-### Props
+Here the `transition` prop refers to the _name_ of the transition (prop named `name` for the `transition` component) while the `mode` is exactly the same as the prop with the same name in the `transition` component.
 
-`FocusTrap` also accepts other props:
+Then you must import the `waitForTransition` function and wrap your `scrollBehavior` function:
 
-- `escapeDeactivates`: `boolean`
-- `returnFocusOnDeactivate`: `boolean`
-- `allowOutsideClick`: `boolean`
-- `initialFocus`: `string | (() => Element)` _Selector or function returning an Element_
-- `fallbackFocus`: `string | (() => Element)` _Selector or function returning an
-  Element_
-
-Please, refer to
-[focus-trap](https://github.com/davidtheclark/focus-trap#focustrap--createfocustrapelement-createoptions)
-documentation to know what they do.
-
-### Events
-
-`FocusTrap` emits 2 events. They are in-sync with the prop `active`
-
-- `activate`: Whenever the trap activates
-- `deactive`: Whenever the trap deactivates (note it can also be deactivated by
-  pressing <kbd>Esc</kbd> or clicking outside)
-
-### Methods
-
-`FocusTrap` can be used without `v-model`. In that case, you will use the
-methods and _probably_ need to initialize the trap as _deactivated_, otherwise,
-the focus will start as active:
-
-```html
-<button @click="() => $refs.focusTrap.activate()">Show the modal</button>
-
-<focus-trap :active="false" ref="focusTrap">
-  <modal-dialog>
-    <p>Hello there!</p>
-    <button @click="() => $refs.focusTrap.deactivate()">Okay...</button>
-  </modal-dialog>
-</focus-trap>
+```js
+// probably your router.js file
+const router = new Router({
+  mode: 'history',
+  routes: [
+    // your routes
+  ],
+  scrollBehavior: waitForTransition((to, from, savedPosition) => {
+    // this code will get executed only once the transition wrapping router-view is finished
+    // this ensures
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      // this ensures we go to the top of the page when navigating to a new page
+      return { x: 0, y: 0 }
+    }
+  }),
+})
 ```
 
-Note the use of arrow functions, this is necessary because we are accessing
-`$refs` which are unset on first render.
+**Note**: You may also want to enable _manual_ scroll restoration:
+
+```js
+history.scrollRestoration = 'manual'
+```
 
 ## Related
 
-- Focus Trap: https://github.com/davidtheclark/focus-trap
+- Vue Router: https://github.com/vuejs/vue-router
 
 ## License
 

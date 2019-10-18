@@ -3,8 +3,8 @@ import Component from 'vue-class-component'
 import Router from 'vue-router'
 import { waitForTransition } from '../src'
 
-const Start = () => import('./Start')
-const Middle = () => import('./Middle')
+const Start = () => import('./Start.vue')
+const Middle = () => import('./Middle.vue')
 
 Vue.use(Router)
 
@@ -13,6 +13,8 @@ Component.registerHooks([
   'beforeRouteLeave',
   'beforeRouteUpdate',
 ])
+
+history.scrollRestoration = 'manual'
 
 const router = new Router({
   mode: 'history',
