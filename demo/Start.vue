@@ -2,7 +2,7 @@
   <section>
     <p>
       Let's try out this demo! Because we are restoring the scroll position, we
-      first need to scroll a bit!. So scroll down a little bit
+      first need to scroll a bit! So scroll down a little bit.
     </p>
 
     <p class="scroll-indicator">
@@ -68,7 +68,7 @@ const scrollBehavior = waitForTransition((to, from, savedPosition) => {
 }) 
         </pre>
 
-If we didin't use that helper, we would have stay at the same scroll level as we were before.
+If we didn't use that helper, we would have stayed at the same scroll level as we were before.
 <br/>
         You can try out <i>In-out</i> but it doesn't look that great 🙃
         `;
